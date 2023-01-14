@@ -4,26 +4,27 @@ import { Wallet } from "./output/wallet_Wallet";
 import { deploy } from "./utils/deploy";
 import { printAddress, printDeploy, printHeader } from "./utils/print";
 import { mnemonicNew, mnemonicToPrivateKey } from "ton-crypto";
-import {BN} from "bn.js";
 
 (async () => {
 
     // Generate new key
-    let mnemonics = await mnemonicNew();
+    let mnemonics = await mnemonicNew(24);
     console.log(mnemonics);
     let keyPair = await mnemonicToPrivateKey(mnemonics);
-    let walletId = new BN(1);
+    let walletId = BigInt(1);
 
     console.log(keyPair);
 
-    console.log(keyPair.secretKey.readBigInt64BE());
+    // console.log(keyPair.secretKey.readBigInt64BE());
 
     // Parameters
     let owner = testAddress('some-owner'); // Replace owner with your address
     //let packed = beginCell().store(storeAdd({ $$type: 'Add', amount: 10n })).endCell(); // Replace if you want another message used
-    let pk = new BN(key.publicKey.toString('hex'), 'hex');
-    let init = await Wallet_init(pk, new BN(0));
-    let init = await Wallet.init(keyPair.secretKey.readBigInt64BE(), walletId);
+
+    let pk = BigInt(`0x${keyPair.publicKey.toString('hex')}`);
+    let init = await Wallet.init(pk, walletId);
+
+    console.log("Init: ",init);
 
 
     //use ton-core method to calculate new contract address with:
@@ -40,6 +41,7 @@ import {BN} from "bn.js";
     let testnet = true;
 
     //command
+    // let command = "Deploy";
     let command = "Deploy";
 
     // Print basics
@@ -50,7 +52,7 @@ import {BN} from "bn.js";
 
 
     // Do deploy
-    await deploy(init, deployAmount, command, testnet)
+   await deploy(init, deployAmount, command, testnet)
 })();
 
 
