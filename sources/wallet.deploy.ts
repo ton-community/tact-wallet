@@ -12,6 +12,8 @@ import { mnemonicNew, mnemonicToPrivateKey } from "ton-crypto";
     console.log(mnemonics);
     let keyPair = await mnemonicToPrivateKey(mnemonics);
     let pk = BigInt(`0x${keyPair.publicKey.toString('hex')}`);
+    //let pk = beginCell().storeBuffer(keyPair.publicKey).endCell().beginParse().loadUintBig(256); - also could be used to get pk from keypair
+
     let walletId = BigInt(0);
 
     // Parameters
