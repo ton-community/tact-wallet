@@ -1,38 +1,32 @@
-# TACT template project
+# TACT wallet demo project
 
 This project has ready to use TACT compiler, typescript + jest with [ton-emulator](https://github.com/ton-community/ton-emulator), example how to do tests.
 
+## Installation
+
+```bash
+git clone https://github.com/Reveloper/tact-wallet.git
+cd tact-wallet
+```
+
+## Using
 ```bash
 yarn test # To test contract
 yarn build # To build contract
 yarn deploy # To deploy contract
+yarn deploy-api # To deploy through API(need to input deployment wallet in wallet.deploy-api.ts)
 ```
+
 ## Overview
 This project has ready to use TACT compiler, typescript + jest with [ton-emulator](https://github.com/ton-community/ton-emulator), example how to do tests.
 
-To launch your own contract you should:
+This project contents demo of Tact wallet contract and deployment demo scripts.
+Note, that this project not intended for using in production environment just for learning of how tact compiler and ton library works.
 
-1) Specify `contract.tact` that will be used in `yarn build`
-2) Specify `contract.spec.ts` tests for using `yarn tests` for launching local tests on your local IDE. Not necessary for deployment.
-3) Specify `contract.deploy.ts` according to your `contract.tact` to generate a deployment link. In particular, it is necessary to correctly call the Init() function from the contract. From the beginning in the template project using Tonhub endpoint in the deeplink, that means you can deploy your smart contract via [Tonhub/Sandbox](https://ton.org/docs/participate/wallets/apps#tonhub) application.
-
-4) If you refactor template project to your own contract, you should update `tact.config.json` correspondingly.
-```json
-{
-"projects": [{
-    "name": "sample",
-    "path": "./sources/wallet.tact",
-    "output": "./sources/output"
-}]
-}
-```
-Where:  
-* `path` - is path to *.tact contract file it will be used when `yarn build` run. 
-* `output` - is path to building files when yarn build run. `yarn test` & `yarn deploy` use these output files. 
-
-In this way you can use template project to play with Tact smart contract examples from [examples](https://github.com/ton-community/tact/tree/main/examples). Good luck!🍀🚀
-
-[Tact documentation.](https://github.com/ton-community/tact/blob/main/docs/overview.md)
+1) Specify `wallet.tact` that will be used in `yarn build`
+2) Specify `wallet.spec.ts` tests for using `yarn tests` for launching local tests on your local IDE. Not necessary for deployment.
+3) Specify `wallet.deploy.ts` according to your `contract.tact` for `yarn deploy` to generate a deployment link. In particular, it is necessary to correctly call the Init() function from the contract. From the beginning in the template project using Tonhub endpoint in the deeplink, that means you can deploy your smart contract via [Tonhub/Sandbox](https://ton.org/docs/participate/wallets/apps#tonhub) application.
+4) Specify alternative deployment script `wallet.deploy-api.ts` for `yarn deploy-api` according to your `contract.tact` to send deployment message from deployment wallet. You need to input your deployment wallet 24 words [here](sources/wallet.deploy-api.ts#L19).
 
 ## Licence
 

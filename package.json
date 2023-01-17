@@ -9,7 +9,7 @@
     "build": "tact --config ./tact.config.json",
     "test": "jest",
     "deploy": "ts-node ./sources/wallet.deploy.ts",
-    "api-deploy": "ts-node ./sources/wallet.deploy-2.ts"
+    "deploy-api": "ts-node sources/wallet.deploy-api.ts"
   },
   "dependencies": {
     "@types/jest": "^29.2.4",
