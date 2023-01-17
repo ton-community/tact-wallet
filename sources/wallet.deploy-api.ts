@@ -21,11 +21,11 @@ import { mnemonicNew, mnemonicToPrivateKey } from "ton-crypto";
 
     let keyPair = await mnemonicToPrivateKey(mnemonics.split(" "));
     let secretKey = keyPair.secretKey;
+    //workchain = 1 - masterchain (expensive operation cost, validator's election contract works here)
+    //workchain = 0 - basechain (normal operation cost, user's contracts works here)
+    let workchain = 0; //we are working in basechain.
 
     //Create deploy wallet contract
-    let workchain = 0;
-    //workchain = 1 - masterchain (expensive operation cost, validator's election contract works here)
-    //workchain = 0 - base-chain (normal operation cost, user's contracts works here)
     let wallet = WalletContractV4.create({ workchain, publicKey: keyPair.publicKey});
     let contract = client.open(wallet);
 
@@ -53,7 +53,7 @@ import { mnemonicNew, mnemonicToPrivateKey } from "ton-crypto";
 
     // send a message on new address contract to deploy it
     let seqno: number = await contract.getSeqno();
-    console.log('🛠️Preparing new outgoing massage from deployment wallet with seqno =', seqno);
+    console.log('🛠️Preparing new outgoing massage from deployment wallet. Seqno = ', seqno);
     console.log('Current deployment wallet balance = ', fromNano(balance).toString(), '💎TON');
     await contract.sendTransfer({
         seqno,
@@ -68,6 +68,6 @@ import { mnemonicNew, mnemonicToPrivateKey } from "ton-crypto";
             body: 'Deploy'
         })]
     });
-    console.log('====deployment message sent to ', destination_address, ' ======');
+    console.log('======deployment message sent to ', destination_address, ' ======');
 
 })();
