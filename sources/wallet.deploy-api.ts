@@ -25,11 +25,11 @@ import { mnemonicNew, mnemonicToPrivateKey } from "ton-crypto";
     //workchain = 0 - basechain (normal operation cost, user's contracts works here)
     let workchain = 0; //we are working in basechain.
 
-    //Create deploy wallet contract
+    //Create deployment wallet contract
     let wallet = WalletContractV4.create({ workchain, publicKey: keyPair.publicKey});
     let contract = client.open(wallet);
 
-    // Get deploy wallet balance
+    // Get deployment wallet balance
     let balance: bigint = await contract.getBalance();
 
 
