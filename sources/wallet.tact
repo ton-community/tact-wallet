@@ -41,15 +41,11 @@ contract Wallet {
     }
 
     receive(msg: Slice) {
-        if (!context().bounced) {
             self.seqno = self.seqno + 1;
-        }
     }
 
     receive("notify") {
-        if (!context().bounced) {
             self.seqno = self.seqno + 1;
-        }
     }
 
     receive("duplicate") {
